@@ -10,7 +10,7 @@ public class Console {
 	static boolean isWindows = System.getProperty("os.name")
 			  .toLowerCase().startsWith("windows");
 	
-	public static void run(String cmd) {
+	public static void run(String cmd) throws IOException {
 		ProcessBuilder processBuilder = new ProcessBuilder();
         // Windows
        
@@ -18,7 +18,7 @@ public class Console {
         if (isWindows) {
         	 processBuilder.command("cmd.exe", "/c", cmd);
 		    log("Launching as WINDOWS");
-		} else {
+		} else { // linux
 			processBuilder.command("sh", "-c", cmd);
 		    log("Launching as LINUX");
 		}
@@ -43,7 +43,7 @@ public class Console {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        Main.askForCommand();
     }
 	
 	public static String returnTime() {
